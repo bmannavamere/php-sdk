@@ -34,7 +34,8 @@ $cc = new ConstantContact(APIKEY);
 // NOTE* I originally did CURL To get the file but that is not needed
 
 // GOALS:
-// GET CSV EXPORT FROM CBC DB TABLE W/ USERNAME, EMAIL, & PAGE PATH
+// 1st - GET CSV EXPORT FROM CBC DB TABLE W/ USERNAME, EMAIL, & PAGE PATH
+// LOOP THROUGH THE CSV AND FOR EACH
 
 // if ( some condition then run ) {
 
