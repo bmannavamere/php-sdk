@@ -8,8 +8,8 @@
 
 <!--
 README: Add or update contact example
-This example flow illustrates how a Constant Contact account owner can add or update a contact in their account. In order for this example to function 
-properly, you must have a valid Constant Contact API Key as well as an access token. Both of these can be obtained from 
+This example flow illustrates how a Constant Contact account owner can add or update a contact in their account. In order for this example to function
+properly, you must have a valid Constant Contact API Key as well as an access token. Both of these can be obtained from
 http://constantcontact.mashery.com.
 -->
 
@@ -23,8 +23,8 @@ use Ctct\Components\Contacts\Contact;
 use Ctct\Exceptions\CtctException;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
-define("APIKEY", "ENTER YOUR API KEY");
-define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
+define("APIKEY", "acxyj9gst9j3rwsjm4wx6vwn");
+define("ACCESS_TOKEN", "cac50a04-85cb-4d34-ab2f-2a097fe29895");
 
 $cc = new ConstantContact(APIKEY);
 

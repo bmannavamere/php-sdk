@@ -14,6 +14,11 @@ http://constantcontact.mashery.com.
 -->
 
 <?php
+
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 // require the autoloaders
 require_once '../src/Ctct/autoload.php';
 require_once '../vendor/autoload.php';
@@ -21,19 +26,27 @@ require_once '../vendor/autoload.php';
 use Ctct\ConstantContact;
 
 // Enter your Constant Contact APIKEY and ACCESS_TOKEN
-define("APIKEY", "ENTER YOUR API KEY");
-define("ACCESS_TOKEN", "ENTER YOUR ACCESS TOKEN");
+define("APIKEY", "acxyj9gst9j3rwsjm4wx6vwn");
+define("ACCESS_TOKEN", "cac50a04-85cb-4d34-ab2f-2a097fe29895");
 
 $cc = new ConstantContact(APIKEY);
 
-if ($_FILES) {
-    $fileName = $_POST['file_name'];
-    $lists = $_POST['lists'];
-    $fileLocation = $_FILES['file']['tmp_name'];
+// NOTE* I originally did CURL To get the file but that is not needed
+
+// GOALS:
+// GET CSV EXPORT FROM CBC DB TABLE W/ USERNAME, EMAIL, & PAGE PATH
+
+// if ( some condition then run ) {
+
+    $fileName = 'cbcContactsExport.csv';
+    // TEST CBC Exports list ID
+    $lists = '1661904574';
+
+    $fileLocation = '../fileLocation/cbcContactsExport.csv';
 
     $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
 
-}
+// }
 
 $contactLists = array();
 $params = array();
@@ -43,7 +56,8 @@ foreach ($listsResult as $list) {
 }
 ?>
 
-<body>
+<!-- GUI For manually uploading -->
+<!-- <body>
 <div class="well">
     <h3>Import a spreadsheet of Contacts (.xls, .xlsx, .csv, .txt)</h3>
 
@@ -66,13 +80,13 @@ foreach ($listsResult as $list) {
             <label class="control-label" for="folder">Folder</label>
 
             <div class="controls">
-                <select multiple name="lists">
-                    <?php
+                <select multiple name="lists" style="resize: both; overflow: auto;">
+                  <  ?php
                     foreach ($contactLists as $list) {
                         echo '<option value="' . $list->id . '">' . $list->name . '</option>';
                     }
                     ?>
-</select>
+                </select>
 
             </div>
         </div>
@@ -83,17 +97,21 @@ foreach ($listsResult as $list) {
                 </div>
         </div>
     </form>
-</div>
+</div> -->
 
 <?php
 // print the details of the contact upload status to screen
 if (isset($fileUploadStatus)) {
-echo '<span class="label label-success">File Uploaded!</span>';
-echo '<div class="container alert-success"><pre class="success-pre">';
-
-        print_r($fileUploadStatus);
-
-    echo '</pre></div>';
+  echo '<span class="label label-success">File Uploaded!</span>';
+  // echo '<div class="container alert-success"><pre class="success-pre">';
+  //
+  //         print_r($fileUploadStatus);
+  //
+  //     echo '</pre></div>';
+  //
+  //     echo '<pre>';
+  //       var_dump($_POST);
+  //     echo '</pre>';
 }
 ?>
 
