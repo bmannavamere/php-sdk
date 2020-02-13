@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Constant Contact API v2 Upload Contact File Example</title>
+    <title>zZz.Constant Contact API v2 Upload Contact File Example</title>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
@@ -31,27 +31,26 @@ define("ACCESS_TOKEN", "cac50a04-85cb-4d34-ab2f-2a097fe29895");
 
 $cc = new ConstantContact(APIKEY);
 
-// create the lists
+// create the contact lists from the database
 // note I changed two file paths so it would work running from here (../../)
 require_once './db-csv/createCSVfromDB.php';
-
-// echo '<pre>';
-//   print_r($csvFileNamesArr);
-// echo '</pre>';
 
 // GOALS
 // -----------------------------------------
 // for each .csv file in ../csvContacts upload those contacts to CC
-// upload them to the correct list ID
-// !!!!!!! START HERE !!!!!!!!
-// ALSO make an array of the file names, then start by looping through that
-// make an array of list ID's that are matched to the filename (page path)
-// i.e. avamere-at-albany => List ID 324323
 
+// Loop through the array of csv file names to do a batch upload to each list
+// note the $csvFileNamesArr comes from createCSVfromDB.php
 foreach ($csvFileNamesArr as $file) {
   echo '<pre>';
     print_r($file);
   echo '</pre>';
+
+  // !!!!!!! START HERE !!!!!!!!
+  // make an array of list ID's that are matched to the filename (page path)
+  // i.e. avamere-at-albany => List ID 324323
+  // CREATE SEVERAL OR MORE.... 10? whatever might hit the rate limit (4 or more)?
+  // TEST LISTS ON CONSTANT CONTACT
 }
 
 
@@ -76,6 +75,23 @@ foreach ($listsResult as $list) {
     array_push($contactLists, $list);
 }
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- GUI For manually uploading -->
 <!-- <body>
