@@ -53,18 +53,18 @@ foreach ($data2 as $datas2) {
   }
 }
 
-// echo '<pre>';
-//   print_r($arrayOfLists);
-// echo '</pre>';
+echo '<pre>';
+  print_r($arrayOfLists);
+echo '</pre>';
 
 // Next create .csv files for each community
 // https://www.php.net/manual/en/function.fputcsv.php
 // do this is a foreach loop to make and save a .csv file for each community
 $i = 0;
 foreach ($arrayOfLists as $key => $value) {
-  echo '<pre>';
-  print_r($arrayOfLists[$i][0]);
-  echo '</pre>';
+  // echo '<pre>';
+  // print_r($arrayOfLists[$i][0]);
+  // echo '</pre>';
   // grab the community names (aka page paths)
   $page_path = $arrayOfLists[$i][0];
   // trim off the slash at the beginning
@@ -75,14 +75,22 @@ foreach ($arrayOfLists as $key => $value) {
 
   $fp = fopen('../../fileLocation/'.$csvFilename, 'w');
 
-  $list = array (
-      array('aaa', 'bbb', 'ccc', 'dddd'),
-      array('123', '456', '789'),
-      array('"aaa"', '"bbb"')
-  );
-  foreach ($list as $fields) {
-      fputcsv($fp, $fields);
-  }
+  // foreach ($list as $fields) {
+  // foreach ($arrayOfLists as $key => $value) {
+
+  // !!!!!!!!!! THIS LINE HERE WORKS TO PUT THE CONTACTS INTO THE FILES, BUT IT PUTS THEM ALL ON
+  // ONE LONG LINE SEPARATED BY "," BLAH BLAH BALHVLHALHSDFHDSKLHFLKDS DKLF HSDLDF KLDSFHDL HSD.
+      // fputcsv($fp, $arrayOfLists[$i]['contacts']);
+
+      echo '<pre>';
+      // print_r($arrayOfLists[$i]['contacts']);
+      print_r($key);
+      echo '</pre>';
+
+  // }
+
+
+
 
   fclose($fp);
 
