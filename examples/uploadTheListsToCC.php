@@ -31,20 +31,39 @@ define("ACCESS_TOKEN", "cac50a04-85cb-4d34-ab2f-2a097fe29895");
 
 $cc = new ConstantContact(APIKEY);
 
-// NOTE* I originally did CURL To get the file but that is not needed
+// create the lists
+// note I changed two file paths so it would work running from here (../../)
+require_once './db-csv/createCSVfromDB.php';
 
-// GOALS:
-// 1st - GET CSV EXPORT FROM CBC DB TABLE W/ USERNAME, EMAIL, & PAGE PATH
-// LOOP THROUGH THE CSV AND FOR EACH
+// echo '<pre>';
+//   print_r($csvFileNamesArr);
+// echo '</pre>';
+
+// GOALS
+// -----------------------------------------
+// for each .csv file in ../csvContacts upload those contacts to CC
+// upload them to the correct list ID
+// !!!!!!! START HERE !!!!!!!!
+// ALSO make an array of the file names, then start by looping through that
+// make an array of list ID's that are matched to the filename (page path)
+// i.e. avamere-at-albany => List ID 324323
+
+foreach ($csvFileNamesArr as $file) {
+  echo '<pre>';
+    print_r($file);
+  echo '</pre>';
+}
+
+
+
 
 // if ( some condition then run ) {
-
-    $fileName = 'cbcContactsExport.csv';
+    $fileName = 'testCsvFileToUpload.csv';
     // TEST CBC Exports list ID
     $lists = '1661904574';
 
     // $fileLocation = '../fileLocation/cbcContactsExport.csv';
-    $fileLocation = 'cbcContactsExport.csv';
+    $fileLocation = 'testCsvFileToUpload.csv';
 
     $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
 
