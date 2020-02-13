@@ -74,6 +74,8 @@ foreach ($arrayOfLists as $key => $value) {
   // echo $csvFilename;
 
   $fp = fopen('../../fileLocation/'.$csvFilename, 'w');
+  //add BOM to fix UTF-8 in Excel
+fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
 
   // foreach ($list as $fields) {
   // foreach ($arrayOfLists as $key => $value) {
@@ -82,10 +84,12 @@ foreach ($arrayOfLists as $key => $value) {
   // ONE LONG LINE SEPARATED BY "," BLAH BLAH BALHVLHALHSDFHDSKLHFLKDS DKLF HSDLDF KLDSFHDL HSD.
       // fputcsv($fp, $arrayOfLists[$i]['contacts']);
 
-      echo '<pre>';
-      // print_r($arrayOfLists[$i]['contacts']);
-      print_r($key);
-      echo '</pre>';
+      // put just the contacts into an array?
+      $contactsOnlyArr = array();
+      $contactsOnlyArr[] = $arrayOfLists[$i]['contacts'];
+      foreach ($contactsOnlyArr as $fields) {
+        fputcsv($fp, $fields, ',');
+      }
 
   // }
 
