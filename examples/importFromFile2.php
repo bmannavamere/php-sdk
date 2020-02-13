@@ -15,9 +15,9 @@ http://constantcontact.mashery.com.
 
 <?php
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // require the autoloaders
 require_once '../src/Ctct/autoload.php';
@@ -43,7 +43,8 @@ $cc = new ConstantContact(APIKEY);
     // TEST CBC Exports list ID
     $lists = '1661904574';
 
-    $fileLocation = '../fileLocation/cbcContactsExport.csv';
+    // $fileLocation = '../fileLocation/cbcContactsExport.csv';
+    $fileLocation = 'cbcContactsExport.csv';
 
     $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
 
@@ -104,15 +105,15 @@ foreach ($listsResult as $list) {
 // print the details of the contact upload status to screen
 if (isset($fileUploadStatus)) {
   echo '<span class="label label-success">File Uploaded!</span>';
-  // echo '<div class="container alert-success"><pre class="success-pre">';
-  //
-  //         print_r($fileUploadStatus);
-  //
-  //     echo '</pre></div>';
-  //
-  //     echo '<pre>';
-  //       var_dump($_POST);
-  //     echo '</pre>';
+  echo '<div class="container alert-success"><pre class="success-pre">';
+
+          print_r($fileUploadStatus);
+
+      echo '</pre></div>';
+
+      echo '<pre>';
+        var_dump($_POST);
+      echo '</pre>';
 }
 ?>
 

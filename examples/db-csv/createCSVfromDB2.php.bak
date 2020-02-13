@@ -39,8 +39,7 @@ foreach ($commsArray as $data) {
 
 // now backup... query the database again and put the contact form submissions in
 // the matching $arrayOfLists's community name
-// Note: use the TRIM() function here to remove white spaces before and after the name and email
-$data2 = $db->query('SELECT page, TRIM(name), TRIM(email) FROM contact_form WHERE page IS NOT NULL ORDER BY page DESC')->fetchAll();
+$data2 = $db->query('SELECT page, name, email, time_stamp FROM contact_form WHERE time_stamp IS NOT NULL ORDER BY time_stamp DESC')->fetchAll();
 foreach ($data2 as $datas2) {
   foreach ($arrayOfLists as $key => $value) {
      // define the value (the page path) from $arrayOfLists to find a match
@@ -50,25 +49,25 @@ foreach ($data2 as $datas2) {
      // if the page paths match
      if ($datas2['page'] == $match) {
        // add all the names/emails in [contacts]
-       $arrayOfLists[$key]['contacts'][] = $datas2['TRIM(name)'].', '. $datas2['TRIM(email)']; //."\n"
+       $arrayOfLists[$key]['contacts'][] = $datas2['name'].', '. $datas2['email']; //."\n"
+       // $arrayOfLists[$key]['contacts'][] = "'" . $datas2['name']."'".', '."'".$datas2['email']."'";
      }
   }
 }
 
-// echo '<pre>';
-//   print_r($arrayOfLists);
-// echo '</pre>';
+echo '<pre>';
+  print_r($arrayOfLists);
+  // var_dump($arrayOfLists);
+echo '</pre>';
 
 // Next create .csv files for each community
-// do this is a foreach loop to make and save a .csv file for each community
 // https://www.php.net/manual/en/function.fputcsv.php
+// do this is a foreach loop to make and save a .csv file for each community
 $i = 0;
-foreach ($arrayOfLists as $line) {
-  echo '<pre>';
+foreach ($arrayOfLists as $key => $value) {
+  // echo '<pre>';
   // print_r($arrayOfLists[$i][0]);
-    print_r($line['contacts']);
-  echo '</pre>';
-
+  // echo '</pre>';
   // grab the community names (aka page paths)
   $page_path = $arrayOfLists[$i][0];
   // trim off the slash at the beginning
@@ -79,24 +78,39 @@ foreach ($arrayOfLists as $line) {
 
   $fp = fopen('../../fileLocation/'.$csvFilename, 'w');
 
-  $contactArr = $line['contacts'];
-  // fputcsv($fp, $contactArr, "\n");
-  // Forget fputcsv! It just will not, not do double quotes.
-  fwrite($fp, implode(" \n",$contactArr));
+  // !!!!!!!!!! THIS LINE HERE WORKS TO PUT THE CONTACTS INTO THE FILES, BUT IT PUTS THEM ALL ON
+  // ONE LONG LINE SEPARATED BY "," BLAH BLAH BALHVLHALHSDFHDSKLHFLKDS DKLF HSDLDF KLDSFHDL HSD.
+  fputcsv($fp, $arrayOfLists[$i]['contacts']);
+
+  // // put just the contacts into an array?
+  // $contactsOnlyArr = array();
+  // $contactsOnlyArr[] = $arrayOfLists[$i]['contacts'];
+  // // echo '<pre>';
+  // //   print_r($contactsOnlyArr);
+  // // echo '</pre>';
+  // foreach ($contactsOnlyArr as $fields) {
+  //   fputcsv($fp, $fields);
+  // }
 
   fclose($fp);
 
-  // add in the column headers required by Constant Contact at the
-  // beginning of the csv file
-  // https://www.php.net/manual/en/function.file-put-contents.php
-  // Open the file to get existing content
-  $file = '../../fileLocation/'.$csvFilename;
-  // Define new content
-  $current = "First Name, Email Address\n";
-  // Append the file to the new content
-  $current .= file_get_contents($file);
-  // Write the contents back to the file
-  file_put_contents($file, $current);
-
+  // plus one to the iterator
   $i++;
 }
+
+
+
+
+// $list = array (
+//     array('aaa', 'bbb', 'ccc', 'dddd'),
+//     array('123', '456', '789'),
+//     array('aaa', 'bbb')
+// );
+//
+// $fp = fopen('file.csv', 'w');
+//
+// foreach ($arrayOfLists as $fields) {
+//     fputcsv($fp, $fields);
+// }
+//
+// fclose($fp);

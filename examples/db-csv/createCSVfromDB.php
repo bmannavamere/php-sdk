@@ -3,9 +3,9 @@
 include 'db-connec.php';
 // DB Credentials
 $dbhost = 'localhost';
-$dbuser = 'avamerem_forms';
-$dbpass = '23m2D09ZhkP4eWnnNr';
-$dbname = 'avamerem_web_forms';
+$dbuser = 'avamerem_form_dev';
+$dbpass = 'pB$?HN#Q.)d}';
+$dbname = 'avamerem_dev_web_forms';
 // Create new database connec class
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 // Query the web_forms database, contact_form table
