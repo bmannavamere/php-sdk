@@ -153,7 +153,7 @@ foreach ($arrayOfLists as $line) {
 
   // Open the file to get existing content
   // $file = '../../csvContacts/'.$csvFilename;
-  // UNCOMMENT BELOW, AND COMMENT ABOVE to run from /examples dir
+  // UNCOMMENT BELOW, AND COMMENT ABOVE to run from the above dir
   $file = '../csvContacts/'.$csvFilename;
 
   // Define new content to add.
