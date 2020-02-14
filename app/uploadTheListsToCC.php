@@ -38,6 +38,11 @@ require_once './db-csv/createCSVfromDB.php';
 // -----------------------------------------------------------------------------
 // for each .csv file in ../csvContacts upload those contacts to CC
 
+echo '<pre>';
+  print_r($csvFileNamesArr);
+echo '</pre>';
+echo '<hr style="border:2.4px solid black;">';
+
 // Loop through the array of csv file names to do a batch upload to each list
 // note the $csvFileNamesArr comes from createCSVfromDB.php
 foreach ($csvFileNamesArr as $file) {
@@ -47,34 +52,54 @@ foreach ($csvFileNamesArr as $file) {
   echo '</pre>';
 
   // !!!!!!! START HERE !!!!!!!!
+  // TEST LIST ID'S IN CC - these will just need to be hardcoded?
+  // /avamere-at-albany 1548726530
+  // /avamere-at-bethany 1995041569
+  // /avamere-at-cascadia-village 1585174354
+  // /avamere-at-chestnut-lane 1530752912
+  // /avamere-at-cheyenne 1461093868
+  // /avamere-at-englewood-heights 1490802359
+
+  $listIDsArray = array(
+    'avamere-at-albany.csv' => '1548726530',
+    '/avamere-at-bethany.csv' => '1995041569',
+    '/avamere-at-cascadia-village.csv' => '1585174354',
+    '/avamere-at-chestnut-lane.csv' => '1530752912',
+    '/avamere-at-cheyenne.csv' => '1461093868',
+    '/avamere-at-englewood-heights.csv' => '1490802359'
+  );
+  // echo '<pre>';
+  //   print_r($listIDsArray);
+  // echo '</pre>';
+
   // make an array of list ID's that are matched to the filename (page path)
   // i.e. avamere-at-albany => List ID 324323
   // CREATE SEVERAL OR MORE.... 10? whatever might hit the rate limit (4 or more)?
-  // Create TEST LISTS ON CONSTANT CONTACT
+
 }
 
 
 
-// ^^^^^ MOVE THIS CODE UP INTO THERE eeeEEEeeeEEEEeeeeeeeeeeeeeee....
-// if ( some condition then run ) {
-    $fileName = 'testCsvFileToUpload.csv';
-    // TEST CBC Exports list ID
-    $lists = '1661904574';
-
-    // $fileLocation = '../fileLocation/cbcContactsExport.csv';
-    $fileLocation = 'testCsvFileToUpload.csv';
-
-    $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
-
+// // ^^^^^ MOVE THIS CODE UP INTO THERE eeeEEEeeeEEEEeeeeeeeeeeeeeee....
+// // if ( some condition then run ) {
+//     $fileName = 'testCsvFileToUpload.csv';
+//     // TEST CBC Exports list ID
+//     $lists = '1661904574';
+//
+//     // $fileLocation = '../fileLocation/cbcContactsExport.csv';
+//     $fileLocation = 'testCsvFileToUpload.csv';
+//
+//     $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
+//
+// // }
+//
+// // DO I NEED THIS BELOW CODE? WHAT DOES IT DO????????????????????????
+// $contactLists = array();
+// $params = array();
+// $listsResult = $cc->listService->getLists(ACCESS_TOKEN, $params);
+// foreach ($listsResult as $list) {
+//     array_push($contactLists, $list);
 // }
-
-// DO I NEED THIS BELOW CODE? WHAT DOES IT DO????????????????????????
-$contactLists = array();
-$params = array();
-$listsResult = $cc->listService->getLists(ACCESS_TOKEN, $params);
-foreach ($listsResult as $list) {
-    array_push($contactLists, $list);
-}
 
 ?>
 
