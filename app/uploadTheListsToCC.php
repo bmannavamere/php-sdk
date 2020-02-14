@@ -55,7 +55,7 @@ foreach ($csvFileNamesArr as $file) {
 
 
 
-
+// ^^^^^ MOVE THIS CODE UP INTO THERE eeeEEEeeeEEEEeeeeeeeeeeeeeee....
 // if ( some condition then run ) {
     $fileName = 'testCsvFileToUpload.csv';
     // TEST CBC Exports list ID
@@ -68,12 +68,14 @@ foreach ($csvFileNamesArr as $file) {
 
 // }
 
+// DO I NEED THIS BELOW CODE? WHAT DOES IT DO????????????????????????
 $contactLists = array();
 $params = array();
 $listsResult = $cc->listService->getLists(ACCESS_TOKEN, $params);
 foreach ($listsResult as $list) {
     array_push($contactLists, $list);
 }
+
 ?>
 
 
