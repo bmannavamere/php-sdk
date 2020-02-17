@@ -45,20 +45,11 @@ require_once './db-csv/createCSVfromDB.php';
 // echo '<hr style="border:2.4px solid black;">';
 
 // A hard coded array of the contact list ID's from Constant Contact. To find
-// these ID's you have to call to the API (
-// use the API tester -> https://constantcontact.mashery.com/io-docs ) as the
-// ID's are not visibile in the GUI (CC's website).
-// Notice I have named the indexes to match the csv file names, which makes it
-// easy to find a match.
+// these ID's you have to call to the API, ( use the API tester ->
+// https://constantcontact.mashery.com/io-docs ) as the ID's are not visibile in
+// the GUI (CC's website). Notice I have named the indexes to match the csv file
+// names, which makes it easy to find a match.
 $listIDsArray = array(
-  // 'avamere-at-albany.csv' => '1548726530',
-  // 'avamere-at-bethany.csv' => '1995041569',
-  // 'avamere-at-cascadia-village.csv' => '1585174354',
-  // 'avamere-at-chestnut-lane.csv' => '1530752912',
-  // 'avamere-at-cheyenne.csv' => '1461093868',
-  // 'avamere-at-englewood-heights.csv' => '1490802359'
-  // ^^^^^^^^^ ABOVE ARE ALL THE TEST LIST ID'S
-  // THE Actual Contact List ID's are below
   'avamere-at-albany.csv' => '1915856765',
   'avamere-at-bethany.csv' => '1654718594',
   'avamere-at-cascadia-village.csv' => '2063850485',
@@ -94,12 +85,12 @@ $listIDsArray = array(
 // echo '</pre>';
 
 // Loop through the array of csv file names to do a batch upload to each list.
-// Note the $csvFileNamesArr comes from createCSVfromDB.php
+// Note the $csvFileNamesArr array comes from the createCSVfromDB.php file.
 foreach ($csvFileNamesArr as $file) {
   echo 'The file to find is: '.$file;
   echo '<br><hr>';
   // Here we find a match of the csv file name and the named index in the
-  // $listIDsArray array
+  // $listIDsArray array.
   foreach ($listIDsArray as $key => $value) {
      // If the file names match
      if ($file == $key) {
@@ -107,18 +98,17 @@ foreach ($csvFileNamesArr as $file) {
        echo 'The list ID num is: '.$value;
        echo ' <hr><br>';
 
-       // $fileName = 'testCsvFileToUpload.csv';
+       // Define the filename to upload.
        $fileName = $file;
-       // TEST CBC Exports list ID
-       // $lists = '1661904574';
+       // Define the list ID for the upload.
        $lists = $value;
-
-       // $fileLocation = '../fileLocation/cbcContactsExport.csv';
-       // $fileLocation = 'testCsvFileToUpload.csv';
+       // Define the file location.
        $fileLocation = '../csvContacts/'.$file;
-
+       // Run this great code from Constant Contact api example code.
        $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
+
        echo 'Contacts Uploaded... <hr><br>';
+
      } else {
        // echo ' No match found.';
      }

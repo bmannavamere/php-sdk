@@ -14,10 +14,16 @@ error_reporting(E_ALL);
 // Include a custom database connection class.
 include 'db-connec.php';
 // Define the DB credentials to use.
+// TEST DB credentials
+// $dbhost = 'localhost';
+// $dbuser = 'avamerem_form_dev';
+// $dbpass = 'pB$?HN#Q.)d}';
+// $dbname = 'avamerem_dev_web_forms';
+// LIVE DB credentials
 $dbhost = 'localhost';
-$dbuser = 'avamerem_form_dev';
-$dbpass = 'pB$?HN#Q.)d}';
-$dbname = 'avamerem_dev_web_forms';
+$dbuser = 'avamerem_forms';
+$dbpass = '23m2D09ZhkP4eWnnNr';
+$dbname = 'avamerem_web_forms';
 // Create new instance of the db class.
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
