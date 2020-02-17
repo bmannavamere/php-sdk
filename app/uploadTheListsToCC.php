@@ -1,16 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>zZz.Constant Contact API v2 Upload Contact File Example</title>
-    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <title>Push Contacts to Constant Contact</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
 
 <!--
 README: Import Contacts from file example
-This example flow illustrates how a Constant Contact account owner can upload a file to their contacts. In order for this example to function
-properly, you must have a valid Constant Contact API Key as well as an access token. Both of these can be obtained from
-http://constantcontact.mashery.com.
+
+This file is a modified version of the sample code found here: https://github.com/constantcontact/php-sdk
+
+To run this file visit: https://avameremarketing.com/pushToConstantContact/app/uploadTheListsToCC.php
+
+It is also run by a cron job once per day.
+
+To learn more read the documentation found on MarCom's 'Share' drive.
+
 -->
 
 <?php
@@ -31,21 +37,16 @@ define("ACCESS_TOKEN", "cac50a04-85cb-4d34-ab2f-2a097fe29895");
 
 $cc = new ConstantContact(APIKEY);
 
-// This file queries the database and creates csv files for each cbc.
-// Also it creates the $csvFileNamesArr used below.
+// This file, required below, queries the database and creates csv files for
+// each cbc. Also it creates the $csvFileNamesArr array used below.
 require_once './db-csv/createCSVfromDB.php';
-
-// GOALS
-// -----------------------------------------------------------------------------
-// for each .csv file in ../csvContacts upload those contacts to CC
-
+// Uncomment the below to see the $csvFileNamesArr
 // echo '<pre>';
 //   print_r($csvFileNamesArr);
 // echo '</pre>';
-// echo '<hr style="border:2.4px solid black;">';
 
-// A hard coded array of the contact list ID's from Constant Contact. To find
-// these ID's you have to call to the API, ( use the API tester ->
+// A hard coded array of the contact lists ID's from Constant Contact. To find
+// these ID's you have to call to the API, ( use the API tester here ->
 // https://constantcontact.mashery.com/io-docs ) as the ID's are not visibile in
 // the GUI (CC's website). Notice I have named the indexes to match the csv file
 // names, which makes it easy to find a match.
@@ -60,6 +61,8 @@ $listIDsArray = array(
   'avamere-at-hillsboro.csv' => '2082235697',
   'avamere-at-lexington.csv' => '2132841659',
   'avamere-at-moses-lake.csv' => '1254127753',
+  // We currently do not control the website for Mountain Ridge and have
+  // therefore received no web forms from it.
   // 'avamere-at-mountain-ridge' => '',
   'avamere-at-newberg.csv' => '1593570705',
   'avamere-at-oak-park.csv' => '1625347543',
@@ -76,23 +79,19 @@ $listIDsArray = array(
   'avamere-at-wenatchee.csv' => '1747134508',
   'avamere-living-at-berry-park.csv' => '1102345200',
   'suzanne-elise.csv' => '1625361259',
+  'the-arbor-at-avamere-court.csv' => '1290808128',
   'the-arbor-at-bremerton.csv' => '1227904174',
   'the-stafford.csv' => '1116238271'
 );
-// uncomment below to see the array
-// echo '<pre>';
-// print_r($listIDsArray);
-// echo '</pre>';
 
-// Loop through the array of csv file names to do a batch upload to each list.
-// Note the $csvFileNamesArr array comes from the createCSVfromDB.php file.
+// Loop through the array of csv file names.
 foreach ($csvFileNamesArr as $file) {
   echo 'The file to find is: '.$file;
   echo '<br><hr>';
   // Here we find a match of the csv file name and the named index in the
   // $listIDsArray array.
   foreach ($listIDsArray as $key => $value) {
-     // If the file names match
+     // If the file names match, then the list ID to use is $value.
      if ($file == $key) {
        echo 'match found for: '.$file.' <br>';
        echo 'The list ID num is: '.$value;
@@ -104,19 +103,30 @@ foreach ($csvFileNamesArr as $file) {
        $lists = $value;
        // Define the file location.
        $fileLocation = '../csvContacts/'.$file;
-       // Run this great code from Constant Contact api example code.
+       // Run this great code from Constant Contact's GitHub to upload the
+       // .csv list of contacts to their website.
        $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
 
-       echo 'Contacts Uploaded... <hr><br>';
+       // Show the POST data
+       if (isset($fileUploadStatus)) {
+         echo '<span class="label label-success">File Uploaded!</span>';
+         echo '<div class="container alert-success"><pre class="success-pre">';
 
-     } else {
-       // echo ' No match found.';
+                 print_r($fileUploadStatus);
+
+             echo '</pre></div>';
+
+             echo '<pre>';
+               var_dump($_POST);
+             echo '</pre>';
+       }
+       echo '<hr><br>';
      }
   }
 }
 
 
-// // This bit of code gets all the contact lists and then they are shown in the
+// // This bit of code below gets all the contact lists and then they are shown in the
 // // select in the GUI below (if you want to use the GUI).
 // $contactLists = array();
 // $params = array();
@@ -128,7 +138,7 @@ foreach ($csvFileNamesArr as $file) {
 ?>
 
 
-<!-- GUI For manually uploading -->
+<!-- GUI For manually uploading one file at a time - NOT Used -->
 <!-- <body>
 <div class="well">
     <h3>Import a spreadsheet of Contacts (.xls, .xlsx, .csv, .txt)</h3>
@@ -172,19 +182,20 @@ foreach ($csvFileNamesArr as $file) {
 </div> -->
 
 <?php
-// print the details of the contact upload status to screen
-if (isset($fileUploadStatus)) {
-  echo '<span class="label label-success">File Uploaded!</span>';
-  echo '<div class="container alert-success"><pre class="success-pre">';
-
-          print_r($fileUploadStatus);
-
-      echo '</pre></div>';
-
-      echo '<pre>';
-        var_dump($_POST);
-      echo '</pre>';
-}
+// Print the details of the contact upload status to screen - NOTE - this only
+// prints the last one that was uploaded.
+// if (isset($fileUploadStatus)) {
+//   echo '<span class="label label-success">File Uploaded!</span>';
+//   echo '<div class="container alert-success"><pre class="success-pre">';
+//
+//           print_r($fileUploadStatus);
+//
+//       echo '</pre></div>';
+//
+//       echo '<pre>';
+//         var_dump($_POST);
+//       echo '</pre>';
+// }
 ?>
 
 </body>
