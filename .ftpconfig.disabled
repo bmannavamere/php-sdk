@@ -1,0 +1,17 @@
+{
+    "protocol": "ftp",
+    "host": "avameremarketing.com",
+    "port": 21,
+    "user": "webTeam@avameremarketing.com",
+    "pass": "2ey}H};oo{A@",
+    "promptForPass": false,
+    "remote": "/public_html/pushToConstantContact",
+    "local": "",
+    "secure": false,
+    "secureOptions": null,
+    "connTimeout": 10000,
+    "pasvTimeout": 10000,
+    "keepalive": 10000,
+    "watch": [],
+    "watchTimeout": 500
+}

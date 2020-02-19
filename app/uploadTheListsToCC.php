@@ -1,3 +1,4 @@
+<?php echo 'Cron ran.'; ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -26,8 +27,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // require the autoloaders
-require_once '../src/Ctct/autoload.php';
-require_once '../vendor/autoload.php';
+// require_once '../src/Ctct/autoload.php';
+// above path did not work w/ cron job so trying absolute paths below
+require_once '/home/avameremarketing/public_html/pushToConstantContact/src/Ctct/autoload.php';
+// require_once '../vendor/autoload.php';
+require_once '/home/avameremarketing/public_html/pushToConstantContact/vendor/autoload.php';
 
 use Ctct\ConstantContact;
 
@@ -39,7 +43,9 @@ $cc = new ConstantContact(APIKEY);
 
 // This file, required below, queries the database and creates csv files for
 // each cbc. Also it creates the $csvFileNamesArr array used below.
-require_once './db-csv/createCSVfromDB.php';
+// require_once './db-csv/createCSVfromDB.php';
+require_once '/home/avameremarketing/public_html/pushToConstantContact/app/db-csv/createCSVfromDB.php';
+
 // Uncomment the below to see the $csvFileNamesArr
 // echo '<pre>';
 //   print_r($csvFileNamesArr);
