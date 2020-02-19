@@ -1,4 +1,3 @@
-<?php echo 'Cron ran.'; ?>
 <!DOCTYPE HTML>
 <html>
 <head>
