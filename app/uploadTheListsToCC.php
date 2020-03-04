@@ -89,6 +89,11 @@ $listIDsArray = array(
   'the-stafford.csv' => '1116238271'
 );
 
+echo '<pre>';
+  print_r($csvFileNamesArr);
+echo '</pre>';
+echo '<hr><br>';
+
 // Loop through the array of csv file names.
 foreach ($csvFileNamesArr as $file) {
   echo 'The file to find is: '.$file;
@@ -107,7 +112,10 @@ foreach ($csvFileNamesArr as $file) {
        // Define the list ID for the upload.
        $lists = $value;
        // Define the file location.
-       $fileLocation = '../csvContacts/'.$file;
+       // $fileLocation = '../csvContacts/'.$file;
+       // Full path for cron job to work
+       $fileLocation = '/home/avameremarketing/public_html/pushToConstantContact/csvContacts/'.$file;
+
        // Run this great code from Constant Contact's GitHub to upload the
        // .csv list of contacts to their website.
        $fileUploadStatus = $cc->activityService->createAddContactsActivityFromFile(ACCESS_TOKEN, $fileName, $fileLocation, $lists);
