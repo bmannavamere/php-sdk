@@ -146,7 +146,9 @@ foreach ($arrayOfLists as $line) {
 
   // $fp = fopen('../../csvContacts/'.$csvFilename, 'w');
   // UNCOMMENT BELOW, AND COMMENT ABOVE to run from the directory above this 1.
-  $fp = fopen('../csvContacts/'.$csvFilename, 'w');
+  // $fp = fopen('../csvContacts/'.$csvFilename, 'w');
+  // Absolute path from /home for cron job to be able to run this.
+  $fp = fopen('/home/avameremarketing/public_html/pushToConstantContact/csvContacts/'.$csvFilename, 'w');
 
   $contactArr = $line['contacts'];
   //
@@ -160,7 +162,9 @@ foreach ($arrayOfLists as $line) {
   // Open the file to get existing content
   // $file = '../../csvContacts/'.$csvFilename;
   // UNCOMMENT BELOW, AND COMMENT ABOVE to run from the above dir
-  $file = '../csvContacts/'.$csvFilename;
+  // $file = '../csvContacts/'.$csvFilename;
+  // Absolute path from /home for cron job to be able to run this.
+  $file = '/home/avameremarketing/public_html/pushToConstantContact/csvContacts/'.$csvFilename;
 
   // Define new content to add.
   $current = "First Name, Email Address\n";
