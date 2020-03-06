@@ -147,7 +147,7 @@ foreach ($arrayOfLists as $line) {
   // $fp = fopen('../../csvContacts/'.$csvFilename, 'w');
   // UNCOMMENT BELOW, AND COMMENT ABOVE to run from the directory above this 1.
   // $fp = fopen('../csvContacts/'.$csvFilename, 'w');
-  // Absolute path from /home for cron job to be able to run this.
+  // Absolute path from /home for cron job to be able to run this
   $fp = fopen('/home/avameremarketing/public_html/pushToConstantContact/csvContacts/'.$csvFilename, 'w');
 
   $contactArr = $line['contacts'];

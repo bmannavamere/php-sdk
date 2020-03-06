@@ -26,3 +26,5 @@ devFile.php
 
 .ftpconfig
 .ftpignore
+.ftpconfig.disabled
+.ftpconfig.OFF
