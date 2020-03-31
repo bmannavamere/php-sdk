@@ -31,11 +31,11 @@ $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 // query both the contact_form table and the tour_form table and combine the
 // result set. All records have a time_stamp, so I used that for a where clause.
 $data = $db->query('
-                      SELECT page, firstName, lastName, email, time_stamp
+                      SELECT page, name, email, time_stamp
                       FROM contact_form
                       WHERE contact_form.time_stamp IS NOT NULL
                       UNION ALL
-                      SELECT page, firstName, lastName, email, time_stamp
+                      SELECT page, name, email, time_stamp
                       FROM tour_form
                       WHERE tour_form.time_stamp IS NOT NULL
                    ')->fetchAll();
@@ -81,11 +81,11 @@ foreach ($commsArray as $data) {
 // Now we backup, query the database again, and put the users names & emails
 // from the form submissions into the $arrayOfLists.
 $data2 = $db->query('
-                      SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
+                      SELECT page, TRIM(name), TRIM(email)
                       FROM contact_form
                       WHERE contact_form.page IS NOT NULL
                       UNION ALL
-                      SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
+                      SELECT page, TRIM(name), TRIM(email)
                       FROM tour_form
                       WHERE tour_form.page IS NOT NULL
                     ')->fetchAll();
@@ -109,7 +109,7 @@ foreach ($data2 as $datas2) {
        // Add the name and email to a new array ['contacts']
        // Use an empty [] after [contacts] so that it will auto increment.
        // Seperate the name and email with a comma and space for the CSV file.
-       $arrayOfLists[$key]['contacts'][] = $datas2['TRIM(firstName)'].' '.$datas2['TRIM(lastName)'].', '. $datas2['TRIM(email)'];
+       $arrayOfLists[$key]['contacts'][] = $datas2['TRIM(name)'].', '. $datas2['TRIM(email)'];
      }
   }
 }
