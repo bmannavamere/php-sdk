@@ -30,15 +30,29 @@ $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 // Begin by querying the database. The query below uses the UNION statement to
 // query both the contact_form table and the tour_form table and combine the
 // result set. All records have a time_stamp, so I used that for a where clause.
+
+// 5-6-20 .bak of original query
+// $data = $db->query('
+//                       SELECT page, firstName, lastName, email, time_stamp
+//                       FROM contact_form
+//                       WHERE contact_form.time_stamp IS NOT NULL
+//                       UNION ALL
+//                       SELECT page, firstName, lastName, email, time_stamp
+//                       FROM tour_form
+//                       WHERE tour_form.time_stamp IS NOT NULL
+//                    ')->fetchAll();
+
+// NEW DB QUERY 5-6-20 - to just get records from the last 24 hours.
 $data = $db->query('
                       SELECT page, firstName, lastName, email, time_stamp
                       FROM contact_form
-                      WHERE contact_form.time_stamp IS NOT NULL
+                      WHERE contact_form.time_stamp >= now() - INTERVAL 1 DAY
                       UNION ALL
                       SELECT page, firstName, lastName, email, time_stamp
                       FROM tour_form
-                      WHERE tour_form.time_stamp IS NOT NULL
+                      WHERE tour_form.time_stamp >= now() - INTERVAL 1 DAY
                    ')->fetchAll();
+
 // Uncomment to view the queries result set.
 // echo '<pre>';
 //   print_r($data);
@@ -80,15 +94,30 @@ foreach ($commsArray as $data) {
 
 // Now we backup, query the database again, and put the users names & emails
 // from the form submissions into the $arrayOfLists.
+
+// 5-6-20 .bak of original query
+// $data2 = $db->query('
+//                       SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
+//                       FROM contact_form
+//                       WHERE contact_form.page IS NOT NULL
+//                       UNION ALL
+//                       SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
+//                       FROM tour_form
+//                       WHERE tour_form.page IS NOT NULL
+//                     ')->fetchAll();
+
+// NEW DB QUERY 5-6-20 - to just get records from the last 24 hours.
 $data2 = $db->query('
                       SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
                       FROM contact_form
-                      WHERE contact_form.page IS NOT NULL
+                      WHERE contact_form.page >= now() - INTERVAL 1 DAY
                       UNION ALL
                       SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
                       FROM tour_form
-                      WHERE tour_form.page IS NOT NULL
+                      WHERE tour_form.page >= now() - INTERVAL 1 DAY
                     ')->fetchAll();
+
+
 // Uncomment to view the $data2 result set from the query. Note that the named
 // indexes include the trim function reference like so --> [TRIM(name)]
 // echo '<pre>';
