@@ -108,13 +108,13 @@ foreach ($commsArray as $data) {
 
 // NEW DB QUERY 5-6-20 - to just get records from the last 24 hours.
 $data2 = $db->query('
-                      SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
+                      SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email), time_stamp
                       FROM contact_form
-                      WHERE contact_form.page >= now() - INTERVAL 1 DAY
+                      WHERE contact_form.time_stamp >= now() - INTERVAL 1 DAY
                       UNION ALL
-                      SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email)
+                      SELECT page, TRIM(firstName), TRIM(lastName), TRIM(email), time_stamp
                       FROM tour_form
-                      WHERE tour_form.page >= now() - INTERVAL 1 DAY
+                      WHERE tour_form.time_stamp >= now() - INTERVAL 1 DAY
                     ')->fetchAll();
 
 
