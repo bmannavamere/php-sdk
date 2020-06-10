@@ -13,17 +13,17 @@ error_reporting(E_ALL);
 
 // Include a custom database connection class.
 include 'db-connec.php';
+
 // Define the DB credentials to use.
-// TEST DB credentials
-// $dbhost = 'localhost';
-// $dbuser = 'avamerem_form_dev';
-// $dbpass = 'pB$?HN#Q.)d}';
-// $dbname = 'avamerem_dev_web_forms';
-// LIVE DB credentials
-$dbhost = 'localhost';
-$dbuser = 'avamerem_forms';
-$dbpass = '23m2D09ZhkP4eWnnNr';
-$dbname = 'avamerem_web_forms';
+
+// 6-10-20 UPDATE - switched to getting contacts from the avamerem_CBC DB
+// THE PROD DB
+$dbhost = "132.148.17.227";
+$dbuser = "avamerem_cbc";
+$dbpass = "Pj7hVYQA22YS";
+$dbname = "avamerem_CBC";
+
+
 // Create new instance of the db class.
 $db = new db($dbhost, $dbuser, $dbpass, $dbname);
 
