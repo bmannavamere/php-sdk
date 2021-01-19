@@ -18,10 +18,16 @@ include 'db-connec.php';
 
 // 6-10-20 UPDATE - switched to getting contacts from the avamerem_CBC DB
 // THE PROD DB
-$dbhost = "132.148.17.227";
-$dbuser = "avamerem_cbc";
-$dbpass = "Pj7hVYQA22YS";
-$dbname = "avamerem_CBC";
+// $dbhost = "132.148.17.227";
+// $dbuser = "avamerem_cbc";
+// $dbpass = "Pj7hVYQA22YS";
+// $dbname = "avamerem_CBC";
+
+// the new nexcess PROD DB 1/19/21
+$dbhost = "104.207.253.26";
+$dbuser = "avamerec_LiveCBC";
+$dbpass = "PassesSepticVersusPawl32";
+$dbname = "avamerec_LiveCBC";
 
 
 // Create new instance of the db class.
